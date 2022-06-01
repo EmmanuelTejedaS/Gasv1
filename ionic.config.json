@@ -1,0 +1,7 @@
+{
+  "name": "myGas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
