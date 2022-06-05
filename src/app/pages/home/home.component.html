@@ -1,3 +1,24 @@
-<p>
-  home works!
-</p>
+<ion-header>
+  <ion-toolbar>
+          <ion-title class="subtitulo ion-text-wrap">
+           My Gas  
+          </ion-title>
+
+          <ion-buttons slot="start">
+              <ion-button (click)="openMenu()">
+                  <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+              </ion-button>
+              <!-- <ion-back-button defaultHref="/"></ion-back-button> -->
+          </ion-buttons>
+
+          <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+            </ion-button>
+            <ion-button [routerLink]="['/perfil']" >
+                <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>

@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+          <ion-title class="subtitulo ion-text-wrap">
+           perfil
+          </ion-title>
+
+          <ion-buttons slot="start">
+              <ion-button (click)="openMenu()">
+                  <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+              </ion-button>
+          </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+
+    <h3 class="subtitulo encabezado">Ingrese tus datos</h3>
+    <ion-item>
+        <ion-label class="normal" position="floating">
+                Email:
+        </ion-label>
+        <ion-input name="email" [(ngModel)]="cliente.email" class="normal" type="text" inputmode="text">
+        </ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!ingresarEnable" >
+      <ion-label class="normal" position="floating">
+              Nombre:
+      </ion-label>
+      <ion-input [(ngModel)]="cliente.nombre" class="normal" type="text" inputmode="text">
+      </ion-input>
+   </ion-item>
+
+    <ion-item>
+        <ion-label class="normal" position="floating">
+                Celular:
+        </ion-label>
+        <ion-input [(ngModel)]="cliente.celular" class="normal" type="text" >
+        </ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!ingresarEnable" >
+      <ion-label class="normal" position="floating">
+              Referencia del domicilio:
+      </ion-label>
+      <ion-input [(ngModel)]="cliente.referencia" class="normal" type="text" inputmode="text">
+      </ion-input>
+   </ion-item>
+
+    <ion-item *ngIf="!ingresarEnable" >
+        <ion-label class="normal">
+                foto referencial:
+        </ion-label>
+      <ion-buttons slot="end">
+        <ion-button>
+            <label for="file-upload">
+              <ion-icon slot="icon-only" name="images"></ion-icon>
+            </label>
+             <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file"  accept="image/*">
+         </ion-button>
+      </ion-buttons>
+    
+    </ion-item>
+
+    <ion-item *ngIf="!ingresarEnable" >
+        <img class="image" [src]="cliente.foto">
+      </ion-item>
+
+      <div >
+        <ion-button *ngIf="!ingresarEnable" (click)="registrarse()" expand="block" >Registrarme </ion-button>
+        <ion-button *ngIf="ingresarEnable" (click)="ingresar()" expand="block" >Iniciar sesion</ion-button>
+        <ion-button (click)="salir()" expand="block" style="margin: 10px;" color="danger" >cerrar sesion</ion-button>
+      </div>
+      <div>
+        <ion-button *ngIf="!ingresarEnable" (click)="ingresarEnable = true" expand="block" color="dark">ya tienes una cuenta, Inicia sesion aqui !</ion-button>
+        <ion-button *ngIf="ingresarEnable" (click)="ingresarEnable = false" expand="block" color="dark" >NO tienes una cuenta? Registrate aqui !</ion-button>   
+    </div>
+
+  </div>
+  
+</ion-content>
