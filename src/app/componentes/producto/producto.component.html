@@ -1,0 +1,22 @@
+<ion-card>
+  <ion-item>
+    <ion-icon name="flame-outline" slot="start"></ion-icon>
+      <h1 class="titulo">{{producto.nombre}}</h1>
+  </ion-item>
+
+  <ion-card-content>
+    <ion-img class="img-producto" [src]="producto.foto"></ion-img>
+    <h1 class="precio">Precio: {{producto.precio}}$</h1>
+      <h1 class="precio">Pagar con:</h1>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="normal text-center"style="border-right: 1px solid #6c757d;">
+        <ion-button expand="block" size="small" fill="outline" color="success">Efectivo</ion-button>
+      </ion-col>
+      <ion-col class="normal text-center">
+        <ion-button expand="block" size="small" fill="outline" color="success">Tarjeta</ion-button> 
+      </ion-col>
+  </ion-row>
+   
+  </ion-card-content>
+</ion-card>

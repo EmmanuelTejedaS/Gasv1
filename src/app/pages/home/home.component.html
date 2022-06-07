@@ -12,9 +12,9 @@
           </ion-buttons>
 
           <ion-buttons slot="end">
-            <ion-button>
+            <!-- <ion-button>
                 <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-            </ion-button>
+            </ion-button> -->
             <ion-button [routerLink]="['/perfil']" >
                 <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
             </ion-button>
@@ -22,3 +22,10 @@
 
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+    <div *ngFor="let producto of productos">
+        <app-producto [producto]= producto></app-producto>
+      </div>
+
+</ion-content>
