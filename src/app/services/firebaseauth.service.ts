@@ -11,6 +11,7 @@ export class FirebaseauthService {
   datosCliente: Cliente;
 
   constructor(public auth: AngularFireAuth) {
+    this.getUid();
 
      }
 
@@ -34,4 +35,8 @@ export class FirebaseauthService {
          return user.uid;
       }
    }
+
+   stateAuth() {
+    return this.auth.authState;
+  }
 }

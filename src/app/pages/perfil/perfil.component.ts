@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController, AlertController } from '@ionic/angular';
 import { Cliente } from 'src/app/models';
 import { Subscription } from 'rxjs';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
@@ -34,12 +34,37 @@ export class PerfilComponent implements OnInit {
   constructor(public menu: MenuController,
               public firebaseauthService: FirebaseauthService,
               public firestorageService: FirestorageService,
-              public firestoreService: FirestoreService
-             ) { }
+              public firestoreService: FirestoreService,
+              public alertController: AlertController,
+              public toastController: ToastController
+             ) {
+               this.firebaseauthService.stateAuth().subscribe( res => {
+                if (res !== null) {
+                  this.uid = res.uid;
+                  this.getUserInfo(this.uid);
+               }else {
+                this.initCliente();
+            }
+               });
+             }
 
   async ngOnInit() {
     const uid = await this.firebaseauthService.getUid();
     console.log(uid);
+  }
+
+  initCliente() {
+    this.uid = '';
+    this.cliente = {
+      uid: '',
+      email: '',
+      celular: '',
+      foto: '',
+      referencia: '',
+      nombre: '',
+      ubicacion: null,
+    };
+    console.log(this.cliente);
   }
 
   openMenu(){
@@ -73,7 +98,7 @@ export class PerfilComponent implements OnInit {
     this.guardarUser();
     console.log(uid);
   }else{
-    // this.toastSinDatos();
+    this.toastSinDatos();
   }
 }
 
@@ -95,7 +120,107 @@ async salir(){
   //const uid = await this.firebaseauthService.getUid();
   //console.log(uid);
   this.firebaseauthService.logout();
-  // this.suscriberUserInfo.unsubscribe();
+  this.suscriberUserInfo.unsubscribe();
  }
+
+ getUserInfo(uid: string) {
+  console.log('getUserInfo');
+  const path = 'Clientes';
+  this.suscriberUserInfo = this.firestoreService.getDoc<Cliente>(path, uid).subscribe( res => {
+         if (res !== undefined) {
+           this.cliente = res;
+         }
+  });
+}
+
+ingresar(){
+  const credenciales = {
+    email: this.cliente.email,
+    password: this.cliente.celular
+  };
+  if(credenciales.email.length && credenciales.password.length){
+    this.firebaseauthService.login(credenciales.email, credenciales.password).then( res => {
+      // this.router.navigate(['/home']);
+      console.log('ingreso con exito');
+  }).catch ( error =>{
+
+  });
+  }else{
+
+  }
+}
+
+async presentAlert() {
+  const alert = await this.alertController.create({
+    header: 'cerrar sesion',
+    message: 'quieres cerrar la sesion?',
+    buttons: [
+      {
+      text: 'NO',
+      handler: ()=>{
+        this.toastContinuar();
+        console.log('NO');
+      }
+    },
+    {
+      text: 'SI',
+      handler: ()=>{
+        this.salir();
+        this.toastCerrarSesion();
+        console.log('gracias por comprar :)');
+      }
+    }
+    ]
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
+
+
+async toastCerrarSesion() {
+  const toast = await this.toastController.create({
+    message: 'se ha cerrrado la sesion',
+    duration: 2000
+  });
+  toast.present();
+}
+
+async toastContinuar() {
+  const toast = await this.toastController.create({
+    message: 'gracias por seguir comprando',
+    duration: 2000
+  });
+  toast.present();
+}
+
+async toastregistrate() {
+  const toast = await this.toastController.create({
+    message: 'llena los campos para poder iniciar sesion',
+    duration: 2000
+  });
+  toast.present();
+}
+
+async toastSinDatos() {
+  const toast = await this.toastController.create({
+    message: 'llena los campos para continuar con el registro',
+    duration: 3000,
+    position: 'middle'
+  });
+  toast.present();
+}
+
+async datoserroneos() {
+  const toast = await this.toastController.create({
+    message: 'Tus datos no coinciden',
+    duration: 3000,
+    position: 'middle'
+  });
+  toast.present();
+}
+
 
 }

@@ -13,8 +13,7 @@
 </ion-header>
 
 <ion-content>
-
-  <div>
+  <div *ngIf="!uid.length">
 
     <h3 class="subtitulo encabezado">Ingrese tus datos</h3>
     <ion-item>
@@ -71,12 +70,78 @@
       <div >
         <ion-button *ngIf="!ingresarEnable" (click)="registrarse()" expand="block" >Registrarme </ion-button>
         <ion-button *ngIf="ingresarEnable" (click)="ingresar()" expand="block" >Iniciar sesion</ion-button>
-        <ion-button (click)="salir()" expand="block" style="margin: 10px;" color="danger" >cerrar sesion</ion-button>
       </div>
       <div>
         <ion-button *ngIf="!ingresarEnable" (click)="ingresarEnable = true" expand="block" color="dark">ya tienes una cuenta, Inicia sesion aqui !</ion-button>
         <ion-button *ngIf="ingresarEnable" (click)="ingresarEnable = false" expand="block" color="dark" >NO tienes una cuenta? Registrate aqui !</ion-button>   
     </div>
+
+  </div>
+
+  <div *ngIf="uid.length">
+
+    <h3 class="subtitulo encabezado">Editar Perfil</h3>
+    <ion-item>
+      <ion-label class="normal">
+              Email: {{cliente.email}}
+      </ion-label> 
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="normal">
+            Celular: {{cliente.celular}}
+    </ion-label>
+</ion-item>
+
+<ion-item>
+  <ion-label class="sucess" >
+    <ion-icon color="sucess" name="warning-outline"></ion-icon>
+         solo puedes editar los siguientes datos
+  </ion-label>
+</ion-item>
+
+  <ion-item>
+    <ion-label class="normal" position="floating">
+            Nombre:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.nombre" class="normal" type="text" inputmode="text">
+    </ion-input>
+ </ion-item>
+
+
+  <ion-item>
+    <ion-label class="normal" position="floating">
+            Referencia del domicilio:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.referencia" class="normal" type="text" inputmode="text">
+    </ion-input>
+ </ion-item>
+
+  <ion-item>
+      <ion-label class="normal">
+              foto referencial del domicilio:
+      </ion-label>
+    <ion-buttons slot="end">
+      <ion-button>
+          <label for="file-upload">
+            <ion-icon slot="icon-only" name="images"></ion-icon>
+          </label>
+           <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file"  accept="image/*">
+       </ion-button>
+    </ion-buttons>
+  
+  </ion-item>
+
+  <ion-item>
+      <img class="image" [src]="cliente.foto">
+    </ion-item>
+
+    <div style="text-align:end; margin: 10px;">
+      <ion-button (click)="guardarUser()" expand="block" style="margin: 10px;" color="dark" >actualizar perfil</ion-button>
+   </div>
+    <div style="text-align:end; margin: 10px;">
+      <ion-button (click)="presentAlert()" expand="block" style="margin: 10px;" color="danger" >cerrar sesion</ion-button>
+   </div>
 
   </div>
   
