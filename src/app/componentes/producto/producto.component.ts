@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Producto } from '../../models';
 import { AlertController, ToastController } from '@ionic/angular';
+import { CarritoService } from '../../services/carrito.service';
 
 @Component({
   selector: 'app-producto',
@@ -10,7 +11,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class ProductoComponent implements OnInit {
   @Input() producto: Producto;
   constructor( public alertController: AlertController,
-               public toastController: ToastController) { }
+               public toastController: ToastController,
+               public carritoService: CarritoService) { }
 
   ngOnInit() {}
 
@@ -29,7 +31,7 @@ export class ProductoComponent implements OnInit {
       {
         text: 'SI',
         handler: ()=>{
-         // this.carritoService.addProducto(this.producto);
+         this.carritoService.addProducto(this.producto);
           console.log('se agrego con exito :)');
         }
       }

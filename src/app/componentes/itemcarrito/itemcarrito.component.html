@@ -1,0 +1,16 @@
+<ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+          <ion-img [src]="productoPedido.producto.foto"></ion-img>
+      </ion-col>
+      <ion-col size="8">
+          <ion-item>
+            <ion-label class="subtitulo ion-text-wrap">{{productoPedido.producto.nombre}}</ion-label>
+          </ion-item>
+          <p class="normal m-2">Precio: {{productoPedido.producto.precio}}</p>
+          <p class="normal m-2">Cantidad: {{productoPedido.cantidad}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>

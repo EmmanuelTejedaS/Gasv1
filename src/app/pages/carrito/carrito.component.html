@@ -1,3 +1,43 @@
-<p>
-  carrito works!
-</p>
+<ion-header>
+  <ion-toolbar>
+          <ion-title class="subtitulo ion-text-wrap">
+           Carrito
+          </ion-title>
+
+          <ion-buttons slot="start">
+              <ion-button (click)="salirDeCarrit()" >
+                  <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+          </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let producto of pedido.productos">
+    <app-itemcarrito [productoPedido]="producto"></app-itemcarrito>
+  </div>
+</ion-content>
+
+<ion-footer> 
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+        <ion-col class="normal text-center" size="6" style="border-right: 1px solid #6c757d;">
+            Cantidad : {{cantidad}}
+        </ion-col>
+        <ion-col class="normal text-center" size="6">
+          Total : $ {{total}}
+        </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="pedir()" expand="full" class="normal" style="color: white ! important">
+          Pagar en efectivo
+        </ion-button>
+        <ion-button id="checkout-button" expand="full" class="normal" style="color: white ! important">
+          pagar con tarjeta
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
