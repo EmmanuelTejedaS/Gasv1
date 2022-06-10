@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ComponentesModule } from '../componentes/componentes.module';
 import { CarritoComponent } from './carrito/carrito.component';
 import { MispedidosComponent } from './mispedidos/mispedidos.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 
@@ -16,7 +17,8 @@ import { MispedidosComponent } from './mispedidos/mispedidos.component';
     HomeComponent,
     PerfilComponent,
     CarritoComponent,
-    MispedidosComponent
+    MispedidosComponent,
+    PedidosComponent
   ],
   imports: [
     CommonModule,

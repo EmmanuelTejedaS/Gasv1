@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+          <ion-title class="subtitulo ion-text-wrap">
+           pedidos de los clientes
+          </ion-title>
+
+          <ion-buttons slot="start">
+              <ion-button (click)="openMenu()">
+                  <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+              </ion-button>
+          </ion-buttons>
+
+          <ion-buttons slot="end">
+            <ion-button [routerLink]="['/perfil']" >
+                <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <div class="m-3">
+    <ion-segment mode="ios" (ionChange)="changeSegment($event)" value="nuevos">
+      <ion-segment-button value="nuevos">
+        <ion-label class="normal">nuevos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="entregados">
+        <ion-label class="normal">entregados</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+</div>
+
+<div *ngIf="nuevos">
+
+  <ion-card *ngFor="let pedido of pedidos" class="mt-5 mb-5">
+    <ion-item>
+      <ion-label class="normal">
+          <p>nombre del cliente: {{pedido.cliente.nombre}}</p>
+          <p>direccion: {{pedido.cliente.referencia}}</p>
+          <p>total: {{pedido.precioTotal}}</p>
+          <p>Estado : {{pedido.estado}}</p>
+          <p>
+            fecha: {{pedido.fecha.seconds*1000 | date }}
+          </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>cambiar estado del pedido</ion-label>
+      <ion-select [value]="pedido.estado" okText="ok" cancelText="cancelar" interface="popover" placeholder="seleccciona uno">
+        <ion-select-option *ngFor="let estado of estados" [value]="estado">{{estado}}</ion-select-option>
+        
+      </ion-select>
+    </ion-item>
+    <app-itemcarrito *ngFor="let producto of pedido.productos"  
+    [productoPedido]="producto" ></app-itemcarrito>
+  </ion-card>
+
+</div>
+
+<div *ngIf="!nuevos">
+
+  <ion-card *ngFor="let pedido of pedidosEntregados" class="mt-5 mb-5">
+    <ion-item>
+      <ion-label class="normal">
+        
+        <p>nombre del cliente: {{pedido.cliente.nombre}}</p>
+        <p>direccion: {{pedido.cliente.referencia}}</p>
+        <p>total: {{pedido.precioTotal}}</p>
+
+          Estado : {{pedido.estado}}
+          <p>
+            fecha: {{pedido.fecha.seconds*1000 | date }}
+          </p>
+      </ion-label>
+    </ion-item>
+    <app-itemcarrito *ngFor="let producto of pedido.productos"  
+    [productoPedido]="producto"></app-itemcarrito>
+  </ion-card>
+
+</div>
+
+<ion-button class="normal" (click)="cargarMas()"> cargar más </ion-button>
+
+</ion-content>
